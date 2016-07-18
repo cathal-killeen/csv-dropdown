@@ -11,19 +11,10 @@ var app = angular.module('csvDropdown', ['ui.bootstrap.datetimepicker'])
     }
 
     var crawlMetrics = function(){
-        $http.get(URL_ROOT + '/metrics/index.json')
+        $http.get('/metrics')
             .then(function(res){
                 console.log(res);
-                var array = [];
-                res.data.forEach(function(metric){
-                    nodes.forEach(function(node){
-                        if(metric.indexOf(node) > -1){
-                            array.push(metric);
-                        }
-                    })
-                })
-                console.log(array);
-                $scope.metrics = array;
+                $scope.metrics = res.data;
             }).catch(function(err){
                 console.log(err);
             })
