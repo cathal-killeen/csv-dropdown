@@ -1,0 +1,20 @@
+{
+  "name": "csv-dropdown",
+  "description": "",
+  "main": "public/app.js",
+  "authors": [
+    "Cathal Killeen <cathalkilleen@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "moment": "^2.14.1"
+  }
+}
