@@ -5,9 +5,20 @@ var app = angular.module('csvDropdown', ['ui.bootstrap.datetimepicker'])
     var nodes = ["403464038","403469181","408510454","408515365"];
 
     $scope.options = {
-        metric: "",
+        metric: [],
         start: null,
-        end: null
+        end: null,
+        metrics: function(){
+            var string = ""
+            var arr = $scope.options.metric;
+            for(var i=0; i < arr.length; i++){
+                if(i>0){
+                    string += '&target=';
+                }
+                string += arr[i].childNodes[0].nodeValue;
+            }
+            return string;
+        }
     }
 
     var crawlMetrics = function(){
@@ -19,7 +30,13 @@ var app = angular.module('csvDropdown', ['ui.bootstrap.datetimepicker'])
                     $(document).ready(function() {
                         $('#metrics').multiselect({
                             includeSelectAllOption: true,
-                            enableClickableOptGroups: true
+                            enableClickableOptGroups: true,
+                            onChange: function(option, checked) {
+                                // Get selected options.
+                                var selectedOptions = $('#metrics option:selected');
+                                console.log(selectedOptions);
+                                $scope.options.metric = selectedOptions;
+                            }
                         });
                     });
                 }, 500);
@@ -36,7 +53,7 @@ var app = angular.module('csvDropdown', ['ui.bootstrap.datetimepicker'])
     }
 
     $scope.downloadLink = function() {
-        return URL_ROOT + '/render/?target=' + $scope.options.metric
+        return URL_ROOT + '/render/?target=' + $scope.options.metrics()
                         + '&from=' + moment($scope.options.start).unix()
                         + '&until=' + moment($scope.options.end).unix()
                         + '&format=csv'
