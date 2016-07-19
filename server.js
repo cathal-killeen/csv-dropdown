@@ -11,16 +11,19 @@ app.get('/metrics', function(req, res){
     var nodes = ["403464038","403469181","408510454","408515365"];
     request('http://159.122.211.137:8080/metrics/index.json', function (error, response, body) {
         if (!error && response.statusCode == 200) {
-            var array = [];
+            var groups = {};
             body = JSON.parse(body);
             body.forEach(function(metric){
                 nodes.forEach(function(node){
                     if(metric.indexOf(node) > -1){
-                        array.push(metric);
+                        if(!groups.hasOwnProperty(node)){
+                            groups[node] = [];
+                        }
+                        groups[node].push(metric);
                     }
                 })
             })
-            res.status(200).send(array);
+            res.status(200).send(groups);
         }else{
             res.status(500).send(error);
         }

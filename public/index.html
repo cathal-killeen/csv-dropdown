@@ -4,16 +4,22 @@
     <meta charset="utf-8">
     <title>Download CSV</title>
 
+    <!-- bootstrap -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" charset="utf-8">
+    <!-- datetimepicker -->
     <link rel="stylesheet" href="bower_components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css"/>
+    <!-- multiselect -->
+    <link rel="stylesheet" href="bower_components/bootstrap-multiselect/dist/css/bootstrap-multiselect.css"/>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <!-- <script src="bower_components/jquery/dist/jquery.min.js"></script> -->
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <script type="text/javascript" src="bower_components/moment/moment.js"></script>
     <script type="text/javascript" src="bower_components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
     <script type="text/javascript" src="bower_components/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js"></script>
+    <script type="text/javascript" src="bower_components/bootstrap-multiselect/dist/js/bootstrap-multiselect.js"></script>
 
 
     <script src="app.js"></script>
@@ -27,8 +33,10 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Metric</label>
                         <div class="col-sm-10">
-                            <select class="form-control" ng-model="options.metric">
-                                <option ng-repeat="metric in metrics" value="{{metric}}">{{metric}}</option>
+                            <select class="form-control" id="metrics" ng-model="options.metric" multiple="multiple">
+                                <optgroup ng-repeat="(key, group) in metrics" label="{{key}}">
+                                    <option ng-repeat="metric in group" value="{{metric}}">{{metric}}</option>
+                                </optgroup>
                             </select>
                         </div>
                     </div>
